@@ -14,9 +14,9 @@ services:
       DATABASE_URL: postgres://postgres:postgres@postgres:5432/medusa-docker
       REDIS_URL: redis://redis
       NODE_ENV: development
-      JWT_SECRET: something
-      COOKIE_SECRET: something
       PORT: 9000
+    env_file:
+      - ./.env
     ports:
       - "9000:9000"
     volumes:
