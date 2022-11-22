@@ -25,6 +25,7 @@ services:
       - traefik.enable=true    
       - traefik.http.routers.https.rule=Host(`${DOMAIN}`)  
       - traefik.http.routers.https.tls=true
+      - traefik.http.routers.traefik.tls.certresolver=${CERT_RESOLVER}
 
     networks:
       - traefik
