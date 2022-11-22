@@ -6,6 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     image: backend:starter
+    hostname: ${DOMAIN}
     container_name: medusa-server-default
     depends_on:
       - postgres
@@ -29,8 +30,7 @@ services:
       - traefik.http.routers.backend.tls=true
       - traefik.http.routers.backend.tls.certresolver=${CERT_RESOLVER}
     networks:
-      - traefik
-      - default
+      - reverse-proxy
 
   postgres:
     image: postgres:10.4
@@ -50,6 +50,5 @@ volumes:
   node_modules:
 
 networks:
-  traefik:
-    external:
-      name: traefik_proxy
+  reverse-proxy:
+    name: reverse-proxy
