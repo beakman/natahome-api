@@ -21,6 +21,14 @@ services:
     volumes:
       - .:/app/medusa
       - node_modules:/app/medusa/node_modules
+    labels:
+      - traefik.enable=true    
+      - traefik.http.routers.https.rule=Host(`${DOMAIN}`)  
+      - traefik.http.routers.https.tls=true
+
+    networks:
+      - traefik
+      - default
 
   postgres:
     image: postgres:10.4
@@ -38,3 +46,8 @@ services:
 
 volumes:
   node_modules:
+
+networks:
+  traefik:
+    external:
+      name: traefik_proxy
