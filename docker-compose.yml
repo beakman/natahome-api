@@ -23,7 +23,7 @@ services:
       - .:/app/medusa
       - node_modules:/app/medusa/node_modules
     labels:
-      - traefik.enable=true    
+      - traefik.enable=true
       - traefik.http.routers.backend.entrypoints=https
       - traefik.http.routers.backend.rule=Host(`${DOMAIN}`)  
       - traefik.http.routers.backend.tls=true
