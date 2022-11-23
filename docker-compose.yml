@@ -26,11 +26,11 @@ services:
     labels:
       - traefik.enable=true
       - traefik.docker.network=traefik
+      - traefik.http.services.backend.loadbalancer.server.port=9000
       - traefik.http.routers.backend.rule=Host(`api.${DOMAIN}`)
       - traefik.http.routers.backend.entrypoints=https
-      # - traefik.http.routers.backend.tls=true
       - traefik.http.routers.backend.tls.certresolver=${CERT_RESOLVER}
-      - traefik.http.services.backend.loadbalancer.server.port=9000
+      # - traefik.http.routers.backend.tls=true      
     networks:
       - traefik
       - medusa_internal
