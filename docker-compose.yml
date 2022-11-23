@@ -24,19 +24,23 @@ services:
       - .:/app/medusa
       - node_modules:/app/medusa/node_modules
     labels:
-      # - traefik.enable=true
+      - traefik.enable=true
+      - traefik.docker.network=traefik
       - traefik.http.routers.backend.rule=Host(`api.${DOMAIN}`)
       - traefik.http.routers.backend.entrypoints=https
-      - traefik.http.routers.backend.tls=true
+      # - traefik.http.routers.backend.tls=true
       - traefik.http.routers.backend.tls.certresolver=${CERT_RESOLVER}
       - traefik.http.services.backend.loadbalancer.server.port=9000
     networks:
-      - reverse-proxy
+      - traefik
+      - medusa_internal
 
   postgres:
     image: postgres:10.4
     ports:
       - "5432:5432"
+    networks:
+      - medusa_internal
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -46,10 +50,14 @@ services:
     image: redis
     expose:
       - 6379
+    networks:
+      - medusa_internal
 
 volumes:
   node_modules:
 
 networks:
-  reverse-proxy:
-    name: reverse-proxy
+  traefik:
+    name: traefiks
+  medusa_internal:
+    internal: true
