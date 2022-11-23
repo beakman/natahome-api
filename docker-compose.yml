@@ -28,7 +28,7 @@ services:
       - traefik.docker.network=traefik
       - traefik.http.services.backend.loadbalancer.server.port=9000
       - traefik.http.routers.backend.rule=Host(`api.${DOMAIN}`)
-      - traefik.http.routers.backend.entrypoints=https
+      - traefik.http.routers.backend.entrypoints=websecure
       - traefik.http.routers.backend.tls.certresolver=${CERT_RESOLVER}
       # - traefik.http.routers.backend.tls=true      
     networks:
