@@ -58,6 +58,6 @@ volumes:
 
 networks:
   traefik:
-    name: traefiks
+    name: traefik
   medusa_internal:
     internal: true
